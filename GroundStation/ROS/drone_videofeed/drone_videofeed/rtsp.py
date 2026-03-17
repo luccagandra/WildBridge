@@ -81,9 +81,6 @@ class RtspNode(Node):
             self.get_logger().error(f"Connection error: {ce}")
             return
 
-        cv2.namedWindow("RTSP Video", cv2.WINDOW_NORMAL)
-        cv2.resizeWindow("RTSP Video", 640, 480)
-
         while rclpy.ok():
             if not self.cap.isOpened():
                 self.get_logger().warn("RTSP stream is not open. Attempting to reconnect...")
@@ -110,17 +107,10 @@ class RtspNode(Node):
             except Exception as e:
                 self.get_logger().error(f"Failed to publish frame: {e}")
 
-            # Display the frame in the OpenCV window
-            cv2.imshow("RTSP Video", frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                self.get_logger().info("OpenCV window close requested by user.")
-                break
-
             time.sleep(0.01)  # High frequency for lower latency
 
         # Cleanup after the loop
         self.cap.release()
-        cv2.destroyAllWindows()
 
 def main(args=None):
     rclpy.init(args=args)

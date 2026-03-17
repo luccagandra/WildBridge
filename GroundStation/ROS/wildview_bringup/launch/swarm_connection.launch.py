@@ -3,6 +3,7 @@ from launch_ros.actions import Node
 import subprocess
 from launch.actions import ExecuteProcess
 import re
+import os
 
 def get_ip_from_mac(mac_addr):
     """
@@ -25,12 +26,10 @@ def get_ip_from_mac(mac_addr):
 def generate_launch_description():
     ld = LaunchDescription()
 
-    ip_drone_1 = get_ip_from_mac('58:79:e0:09:f7:3a') or '10.222.241.32'
+    ip_drone_1 = '192.168.1.2'
     
     drones = [
-        {'namespace': 'drone_1', 'ip_rc': ip_drone_1},  
-        {'namespace': 'drone_2', 'ip_rc': '192.168.154.28'},
-        {'namespace': 'drone_3', 'ip_rc': '192.168.137.106'}
+        {'namespace': 'drone_1', 'ip_rc': ip_drone_1}
     ]
     
     # Add RTSP streaming node

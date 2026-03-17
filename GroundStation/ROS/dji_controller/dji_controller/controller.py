@@ -446,9 +446,10 @@ class DjiNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = DjiNode()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    if rclpy.ok():
+        rclpy.spin(node)
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == '__main__':
